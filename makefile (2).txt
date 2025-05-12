@@ -1,0 +1,25 @@
+word_ladder.exe: main.c
+	gcc main.c -o word_ladder.exe
+
+run: word_ladder.exe
+	./word_ladder.exe
+
+run_valgrind: word_ladder.exe
+	rm -f word_ladder.exe
+	gcc -g main.c -o word_ladder.exe
+	valgrind -s --tool=memcheck --leak-check=yes --track-origins=yes ./word_ladder.exe
+
+run_redirect: word_ladder.exe
+	./word_ladder.exe < input.txt
+
+test.exe: main.c
+	gcc -DTESTING main.c -o test.exe
+
+run_test: test.exe
+	./test.exe --test
+
+run_quiet: word_ladder.exe
+	c./word_ladder.exe -q
+
+clean:
+	rm -f word_ladder.exe test.exe
